@@ -53,6 +53,41 @@ else
 fi
 
 echo "--------------------------------"
+echo "Creating Report for $1"
+
+touch $1/report.txt
+
+echo "--------------------------------" >> $1/report.txt
+echo "ReconSwift Report" >> $1/report.txt
+echo date >> $1/report.txt
+echo "Target Domain: $1" >> $1/report.txt
+echo "Scan Intensity: $2" >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+echo "Combining files"
+echo "--------------------------------" >> $1/report.txt
+
+cat $1/ip_addresses.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/subdomains.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/alive_subdomains.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/ports.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/technologies.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/robots.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/waybackurls.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/interesting_files.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+cat $1/interesting_directories.txt >> $1/report.txt
+echo "--------------------------------" >> $1/report.txt
+
+
+
+echo "--------------------------------"
 echo "ReconSwift has finished running!"
 
 
