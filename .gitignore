@@ -4,3 +4,6 @@
 *.online
 *.in
 *.co.in
+
+.env
+node_modules
