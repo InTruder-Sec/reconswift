@@ -3,9 +3,33 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import endpoints from "./routes.js";
+import AWS from "aws-sdk";
 
 dotenv.config();
 const app = express();
+
+let scanStatus = {
+  status: false,
+};
+
+const SQS = new AWS.SQS({
+  apiVersion: "2012-11-05",
+  region: "ap-south-1",
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+});
+
+const paramsSendMessage = {
+  MessageBody: JSON.stringify({
+    type: "event-live-status",
+  }),
+  QueueUrl: process.env.AWS_SQS_URL,
+};
+
+const paramsRecieveMessage = {
+  QueueUrl: process.env.AWS_SQS_URL,
+  WaitTimeSeconds: 0,
+};
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -27,3 +51,5 @@ await mongoose.connect(process.env.DATABASE_URI).catch((error) => {
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running on port ${process.env.PORT || 8080}`);
 });
+
+export { scanStatus, SQS, paramsSendMessage, paramsRecieveMessage };

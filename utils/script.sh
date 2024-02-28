@@ -23,6 +23,12 @@ then
 	  exit 1
 fi
 
+if [ -z "$3" ]
+then
+	  echo "No scan id supplied"
+	  exit 1
+fi
+
 echo Target Domain: $1
 echo Scan Intensity: $2
 
@@ -32,23 +38,23 @@ echo "Running ReconSwift Modules!"
 echo "Creating files for $1"
 mkdir $1
 
-if [ $2 = "qs" ];
+if [ $2 = "Quick_Scan" ];
 then
 	
 	echo "Running Quick Scan!"
-	./modules/quick_scan.sh $1 
+	./utils/modules/quick_scan.sh $1
 
-elif [ $2 = "fs" ];
+elif [ $2 = "Full_Scan" ];
 then
 
 	echo "Running Full Scan!"
-	./modules/full_scan.sh $1
+	./modules/full_scan.sh $1 
 
-elif [ $2 = "as" ];
+elif [ $2 = "Advanced_Scan" ];
 then
 	
 	echo "Running Advanced Scan!"
-	./modules/advanced_scan.sh $1
+	./modules/advanced_scan.sh $1 
 
 else
 	echo "Invalid Scan Intensity"
@@ -58,55 +64,58 @@ fi
 echo "-----------------------------------------------------------------------------"
 echo "Creating Report for $1"
 
-touch $1/report.txt
+touch ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "ReconSwift Report" >> $1/report.txt
-echo "Date: `date`" >> $1/report.txt
-echo "Author: @InTrud3r" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+echo "ReconSwift Report" >> ./reports/report.txt
+echo "Date: `date`" >> ./reports/report.txt
+echo "Author: @InTrud3r" >> ./reports/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "IP Addresses" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/ip_addresses.txt >> $1/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+echo "IP Addresses" >> ./reports/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+cat $1/ip_addresses.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Subdomains" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/subdomains.txt >> $1/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+echo "Subdomains" >> ./reports/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+cat $1/subdomains.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Alive Subdomains" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/alive_subdomains.txt >> $1/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# echo "Alive Subdomains" >> ./reports/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# cat $1/alive_subdomains.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Open Ports" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/ports.txt >> $1/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# echo "Open Ports" >> ./reports/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# cat $1/ports.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Technologies" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/technologies.txt >> $1/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# echo "Technologies" >> ./reports/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# cat $1/technologies.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Waybackurls" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/waybackurls.txt >> $1/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# echo "Waybackurls" >> ./reports/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# cat $1/waybackurls.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "Interesting Files" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-cat $1/gobuster.txt >> $1/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# echo "Interesting Files" >> ./reports/report.txt
+# echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+# cat $1/gobuster.txt >> ./reports/report.txt
 
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
-echo "-----------------------------------------------------------------------------" >> $1/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
+echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
 
+rm -rf $1
+rm -rf reports/_$1
 echo "Report for $1 has been created!"
 echo "ReconSwift has finished running!"
 echo "Thank you for using ReconSwift!"
 echo "-----------------------------------------------------------------------------"
 
 
+curl -X GET -H "Content-Type: application/json" http://localhost:5000/api/v1/completescan?Id=$3
