@@ -22,7 +22,7 @@ const completeScan = async (req, res) => {
     })
     .then(async (result) => {
       console.log(result);
-      exec(`rm ../reports/*`);
+      exec(`rm /reports/*`);
       await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }
