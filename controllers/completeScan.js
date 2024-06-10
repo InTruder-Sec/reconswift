@@ -3,6 +3,7 @@ import startScan from "./startScan.js";
 import cloudinary from "cloudinary";
 import { exec } from "child_process";
 
+
 const completeScan = async (req, res) => {
   cloudinary.v2.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -12,7 +13,7 @@ const completeScan = async (req, res) => {
   const Id = req.query.Id;
   console.log(Id);
   //   Upload file
-  const report = "./reports/report.txt";
+  const report = "$basepath/report/report.txt";
   // const file = fs.readFileSync(report);
   cloudinary.v2.uploader
     .upload(report, {
@@ -22,7 +23,7 @@ const completeScan = async (req, res) => {
     })
     .then(async (result) => {
       console.log(result);
-      exec(`rm /reports/*`);
+      exec(`rm -rf $basepath/report`);
       await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }

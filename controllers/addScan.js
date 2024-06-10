@@ -7,12 +7,16 @@ import {
 import ScansData from "../model/UserScans.js";
 import startScan from "./startScan.js";
 
+
+
 export default async function addScan(req, res) {
   const id = req.query.id;
 
   if (!id) {
     return res.status(400).json({ message: "Missing id" });
   }
+
+  console.log(req.query)
 
   const details = await ScansData.findOne({
     _id: id,
