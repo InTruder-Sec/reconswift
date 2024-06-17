@@ -19,15 +19,15 @@ cat ./.temp/report/subdomains.txt | sudo docker run -i httprobe -c 100 -t 3000 |
 
 # # Get Open Ports
 # echo "Getting Open Ports"
-# cat ./$1/alive_subdomains.txt | naabu -silent -top-ports 1000 -o ./$1/ports.txt
+# cat ./.temp/report/alive_subdomains.txt | sudo docker run -i naabu -top-ports 1000 -o $basepath/report/ports.txt
 
 # # Get Technologies
 # echo "Getting technologies"
-# webtech --urls-file ./$1/alive_subdomains.txt | tee -a ./$1/technologies.txt
+# webtech --urls-file ./.temp/report/alive_subdomains.txt | tee -a $basepath/report/technologies.txt
 
-# # Get Waybackurls
-# # echo "Gathering Waybackurls"
-# # ./utils/tools/waybackurl $1 | tee -a ./$1/waybackurls.txt
+# Get Waybackurls
+# echo "Gathering Waybackurls"
+# ./utils/tools/waybackurl $1 | tee -a ./$1/waybackurls.txt
 
 
 # # Get Interesting Files
@@ -50,17 +50,17 @@ echo "Alive Subdomains" >> $basepath/report/report.txt
 cat $basepath/report/alive_subdomains.txt >> $basepath/report/report.txt
 echo "--------------------------------" >> $basepath/report/report.txt
 
-# echo "Open Ports" >> ./reports/report.txt
-# cat ./$1/ports.txt >> ./reports/report.txt
-# echo "--------------------------------" >> ./reports/report.txt
+# echo "Open Ports" >> $basepath/report/report.txt
+# cat $basepath/report/ports.txt >> $basepath/report/report.txt
+# echo "--------------------------------" >> $basepath/report/report.txt
 
-# echo "Technologies" >> ./reports/report.txt
-# cat ./$1/technologies.txt >> ./reports/report.txt
-# echo "--------------------------------" >> ./reports/report.txt
+# echo "Technologies" >> $basepath/report/report.txt
+# cat $basepath/report/technologies.txt >> $basepath/reportreport.txt
+# echo "--------------------------------" >> $basepath/report/report.txt
 
-# # echo "Waybackurls" >> ./reports/report.txt
-# # cat ./$1/waybackurls.txt >> ./reports/report.txt
-# # echo "--------------------------------" >> ./reports/report.txt
+# echo "Waybackurls" >> $basepath/report/report.txt
+# cat ./$1/waybackurls.txt >> $basepath/report/report.txt
+# echo "--------------------------------" >> $basepath/report/report.txt
 
 # echo "Gobuster" >> ./reports/report.txt
 # cat ./$1/gobuster.txt >> ./reports/report.txt

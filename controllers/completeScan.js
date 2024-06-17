@@ -2,10 +2,17 @@ import ScansData from "../model/UserScans.js";
 import startScan from "./startScan.js";
 import cloudinary from "cloudinary";
 import { exec } from "child_process";
+import { globalStartTime } from "./startScan.js";
 import fs from "fs";
+import UserData from "../model/UserSchema.js";
 
 
 const completeScan = async (req, res) => {
+  const endTime = new Date().getTime();
+  // get the time difference in minutes
+
+  const timeTaken = Math.round((endTime - globalStartTime)/60000);
+
   cloudinary.v2.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
@@ -26,10 +33,17 @@ const completeScan = async (req, res) => {
       console.log(result, "Report uploaded");
       exec(`rm -rf ./.temp/report`);
       console.log("File deleted")
-      await ScansData.findOneAndUpdate(
+      const scanData = await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }
       );
+      // find the user by scanId and add scanTime to previous scanTime
+      const updateTime = await UserData.findOneAndUpdate(
+        { scanHistory: scanData._id },
+        { $inc: { scanTime: timeTaken } }
+      )
+      console.log(updateTime)
+        
       startScan();
       res.json({ message: "Scan completed" });
     })

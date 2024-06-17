@@ -24,7 +24,7 @@ CLOUD_API_SECRET=REDACTED
 
 Start Commands:
 
-_⚠️Note: Some tools requires root previllages to run!_
+_⚠️Note: Some tools requires root previleges to run!_
 
 ```
 sudo npm run preinstall
