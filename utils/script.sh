@@ -12,7 +12,7 @@ echo "--------------------------------------------------------------------------
 
 
 export basepath=$(pwd)/.temp/
-
+echo $basepath
 rm -rf $basepath/report
 
 # save all files to $basepath
@@ -38,12 +38,21 @@ fi
 echo Target Domain: $1
 echo Scan Intensity: $2
 
+# Clean $1 domain remove last / if present
+if [[ $1 == */ ]]
+then
+	export domain=$(echo $1 | sed 's/.$//')
+else
+	export domain=$1
+fi
+
 echo "-----------------------------------------------------------------------------"
 
 echo "Running ReconSwift Modules!"
 echo "Creating files for $1"
 mkdir .temp/report
 touch $basepath/report/report.txt
+
 
 echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
 echo "ReconSwift Report" >> $basepath/report/report.txt
@@ -52,23 +61,23 @@ echo "Author: @InTrud3r" >> $basepath/report/report.txt
 echo "-----------------------------------------------------------------------------" >> ./reports/report.txt
 
 
-if [ $2 = "Quick_Scan" ];
+if [ $2 = "Quick" ];
 then
 	
 	echo "Running Quick Scan!"
-    $basepath/utils/modules/quick_scan.sh $1
+    bash $basepath/../utils/modules/quick_scan.sh $domain
 
-elif [ $2 = "Full_Scan" ];
+elif [ $2 = "Full" ];
 then
 
 	echo "Running Full Scan!"
-	$basepath/utils/modules/full_scan.sh
+	bash $basepath/../utils/modules/full_scan.sh $domain
 
-elif [ $2 = "Advanced_Scan" ];
+elif [ $2 = "Advanced" ];
 then
 	
 	echo "Running Advanced Scan!"
-	$basepath/utils/modules/advanced_scan.sh
+	bash $basepath/../utils/modules/advanced_scan.sh $domain
 
 else
 	echo "Invalid Scan Intensity"
@@ -79,11 +88,10 @@ fi
 echo "-----------------------------------------------------------------------------" >> $basepath/report/report.txt
 echo "-----------------------------------------------------------------------------" >> $basepath/report/report.txt
 
-rm -rf $basepath/report/
 echo "Report for $1 has been created!"
 echo "ReconSwift has finished running!"
 echo "Thank you for using ReconSwift!"
 echo "-----------------------------------------------------------------------------"
 
 
-curl -X GET -H "Content-Type: application/json" http://localhost:5000/api/v1/completescan?Id=$3
+curl -X GET -H "Content-Type: application/json" http://localhost:5000/api/v1/completescan?Id=$4

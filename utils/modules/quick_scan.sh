@@ -1,17 +1,18 @@
 # Get IP addresses
 
 echo "Getting IP Addresses"
-host $1 | grep "has address" | cut -d " " -f4 | sort -u | tee -a ./$1/ip_addresses.txt
+host $1 | grep "has address" | cut -d " " -f4 | sort -u | tee -a $basepath/report/ip_addresses.txt
+
 
 # Get Subdomains
 
-# echo "Getting Subdomains"
-# sublist3r -n -d $1 | grep $1 | tee -a ./$1/subdomains.txt
+echo "Getting Subdomains"
+python3 ../utils/tools/Sublist3r/sublist3r.py -n -d $1 | grep $1 | tee -a $basepath/report/subdomains.txt
 
 
-# # Check for Alive Subdomains
-# # echo "Checking for Alive Subdomains"
-# # ./utils/tools/httpx -l ./$1/subdomains.txt -silent -threads 100 -timeout 10 -retries 2 -o ./$1/alive_subdomains.txt
+# Check for Alive Subdomains
+# echo "Checking for Alive Subdomains"
+# ./utils/tools/httpx -l ./$1/subdomains.txt -silent -threads 100 -timeout 10 -retries 2 -o ./$1/alive_subdomains.txt
 
 
 # # Get Open Ports
@@ -32,16 +33,16 @@ host $1 | grep "has address" | cut -d " " -f4 | sort -u | tee -a ./$1/ip_address
 # gobuster dir -u $1 -w ./wordlists/dir/common.txt -t 100 > ./$1/gobuster.txt
 # # dirsearch -u $1 
 
-# echo "--------------------------------"
-# echo "Generating Report"
+echo "--------------------------------"
+echo "Generating Report"
 
-# echo "IP Addresses" >> ./reports/report.txt
-# cat ./$1/ip_addresses.txt >> ./reports/report.txt
-# echo "--------------------------------" >> ./reports/report.txt
+echo "IP Addresses" >> $basepath/report/report.txt
+cat ./$1/ip_addresses.txt >> $basepath/report/report.txt
+echo "--------------------------------" >> $basepath/report/report.txt
 
-# echo "Subdomains" >> ./reports/report.txt
-# cat ./$1/subdomains.txt >> ./reports/report.txt
-# echo "--------------------------------" >> ./reports/report.txt
+echo "Subdomains" >> $basepath/report/report.txt
+cat ./$1/subdomains.txt >> $basepath/report/report.txt
+echo "--------------------------------" >> $basepath/report/report.txt
 
 # # echo "Alive Subdomains" >> ./reports/report.txt
 # # cat ./$1/alive_subdomains.txt >> ./reports/report.txt
@@ -67,9 +68,9 @@ host $1 | grep "has address" | cut -d " " -f4 | sort -u | tee -a ./$1/ip_address
 # cat ../reports/dirsearch.txt >> ./reports/report.txt
 # echo "--------------------------------" >> ./reports/report.txt
 
-# echo "Report Generated!"
-# echo "--------------------------------"
-# echo "Quick Scan Complete!"
-# echo "--------------------------------"
+echo "Report Generated!"
+echo "--------------------------------"
+echo "Quick Scan Complete!"
+echo "--------------------------------"
 
 

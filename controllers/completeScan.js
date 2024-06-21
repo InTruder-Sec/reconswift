@@ -2,6 +2,7 @@ import ScansData from "../model/UserScans.js";
 import startScan from "./startScan.js";
 import cloudinary from "cloudinary";
 import { exec } from "child_process";
+import fs from "fs";
 
 
 const completeScan = async (req, res) => {
@@ -13,8 +14,8 @@ const completeScan = async (req, res) => {
   const Id = req.query.Id;
   console.log(Id);
   //   Upload file
-  const report = "$basepath/report/report.txt";
-  // const file = fs.readFileSync(report);
+  const report = ".temp/report/report.txt";
+  const file = fs.readFileSync(report);
   cloudinary.v2.uploader
     .upload(report, {
       resource_type: "raw",
@@ -22,8 +23,8 @@ const completeScan = async (req, res) => {
       overwrite: true,
     })
     .then(async (result) => {
-      console.log(result);
-      exec(`rm -rf $basepath/report`);
+      console.log(result, "Report uploaded");
+      exec(`rm ./.temp/report`);
       await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }

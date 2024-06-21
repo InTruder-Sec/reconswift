@@ -4,6 +4,7 @@
 *.online
 *.in
 *.co.in
-
+*.txt
+.temp/*
 .env
 node_modules

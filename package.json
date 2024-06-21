@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "preinstall": "pip install -r config",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
