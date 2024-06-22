@@ -24,7 +24,8 @@ const completeScan = async (req, res) => {
     })
     .then(async (result) => {
       console.log(result, "Report uploaded");
-      exec(`rm ./.temp/report`);
+      exec(`rm -rf ./.temp/report`);
+      console.log("File deleted")
       await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }

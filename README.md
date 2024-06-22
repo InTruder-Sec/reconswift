@@ -24,7 +24,7 @@ CLOUD_API_SECRET=REDACTED
 
 ### 🏗️ Project Architecture
 
-[Lucid App](https://lucid.app/lucidchart/db05ad07-c3e7-446d-8fa4-50907172cb68/edit?viewport_loc=-1957%2C-43%2C3042%2C1462%2C0_0&invitationId=inv_19c5e55b-d1ea-46d7-933b-b001d702c0d2)
+<img width="100%" height="100%" src="https://lucid.app/publicSegments/view/ea3333a7-fca1-4b65-a6bc-e6c448db1876/image.png"/>
 
 ### 🛠️ Tech-Stack
 
