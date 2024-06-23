@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "preinstall": "pip install -r config && apt install -y golang",
+    "preinstall": "pip install -r config && sudo apt install -y docker.io && git clone https://github.com/tomnomnom/httprobe.git && sudo docker build -t httprobe ./httprobe && rm -rf httpprobe",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },

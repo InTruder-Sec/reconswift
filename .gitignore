@@ -1,10 +1,5 @@
-.env
-*.com
-*.tech
-*.online
-*.in
-*.co.in
 *.txt
-.temp/*
+report.txt
+.temp
 .env
 node_modules

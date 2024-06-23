@@ -11,8 +11,10 @@ python3 ./utils/tools/Sublist3r/sublist3r.py -n -d $1 | grep $1 | tee -a $basepa
 
 
 # Check for Alive Subdomains
+pwd
 echo "Checking for Alive Subdomains"
-./utils/tools/httpx -l $basepath/report/subdomains.txt -silent -threads 100 -timeout 10 -retries 2 -o $basepath/report/alive_subdomains.txt
+# httpxx -l ./.temp/report/subdomains.txt -silent -threads 100 -timeout 10 -retries 2 -o $basepath/report/alive_subdomains.txt
+cat ./.temp/report/subdomains.txt | sudo docker run -i httprobe -c 100 -t 3000 | tee -a $basepath/report/alive_subdomains.txt
 
 
 # # Get Open Ports
@@ -33,7 +35,7 @@ echo "Checking for Alive Subdomains"
 # gobuster dir -u $1 -w ./wordlists/dir/common.txt -t 100 > ./$1/gobuster.txt
 # # dirsearch -u $1 
 
-echo "--------------------------------"
+echo "--------------------------------" >> $basepath/report/report.txt
 echo "Generating Report"
 
 echo "IP Addresses" >> $basepath/report/report.txt

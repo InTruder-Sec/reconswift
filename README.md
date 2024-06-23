@@ -22,6 +22,16 @@ CLOUD_API_KEY=REDACTED
 CLOUD_API_SECRET=REDACTED
 ```
 
+Start Commands:
+
+_⚠️Note: Some tools requires root previllages to run!_
+
+```
+sudo npm run preinstall
+npm install
+sudo npm start
+```
+
 ### 🏗️ Project Architecture
 
 <img width="100%" height="100%" src="https://lucid.app/publicSegments/view/ea3333a7-fca1-4b65-a6bc-e6c448db1876/image.png"/>
