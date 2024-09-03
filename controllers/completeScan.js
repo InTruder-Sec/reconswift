@@ -11,7 +11,7 @@ const completeScan = async (req, res) => {
   const endTime = new Date().getTime();
   // get the time difference in minutes
 
-  const timeTaken = Math.round((endTime - globalStartTime)/60000);
+  const timeTaken = Math.ceil((endTime - globalStartTime)/60000);
 
   cloudinary.v2.config({
     cloud_name: process.env.CLOUD_NAME,

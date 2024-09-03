@@ -13,8 +13,8 @@ echo "--------------------------------------------------------------------------
 
 export basepath=$(pwd)/.temp/
 echo $basepath
-rm -rf $basepath/report
-
+rm -rf $basepath/report || echo "Clead directory"
+mkdir $basepath
 # save all files to $basepath
 
 if [ -z "$1" ]
@@ -65,7 +65,8 @@ if [ $2 = "Quick" ];
 then
 	
 	echo "Running Quick Scan!"
-    bash $basepath/../utils/modules/quick_scan.sh $domain
+	#bash $basepath/../utils/modules/quick_scan.sh $domain
+	./utils/modules/quick_scan.sh $domain || echo "Something went wron 2"
 
 elif [ $2 = "Full" ];
 then
@@ -94,4 +95,4 @@ echo "Thank you for using ReconSwift!"
 echo "-----------------------------------------------------------------------------"
 
 
-curl -X GET -H "Content-Type: application/json" http://localhost:5000/api/v1/completescan?Id=$4
+curl -X GET -H "Content-Type: application/json" http://localhost:80/api/v1/completescan?Id=$4

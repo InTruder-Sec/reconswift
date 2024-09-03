@@ -7,14 +7,14 @@ host $1 | grep "has address" | cut -d " " -f4 | sort -u | tee -a $basepath/repor
 # Get Subdomains
 
 echo "Getting Subdomains"
-python3 ./utils/tools/Sublist3r/sublist3r.py -n -d $1 | grep $1 | tee -a $basepath/report/subdomains.txt
+sublist3r -n -d $1 | grep $1 | tee -a $basepath/report/subdomains.txt
 
 
 # Check for Alive Subdomains
 pwd
 echo "Checking for Alive Subdomains"
 # httpxx -l ./.temp/report/subdomains.txt -silent -threads 100 -timeout 10 -retries 2 -o $basepath/report/alive_subdomains.txt
-cat ./.temp/report/subdomains.txt | sudo docker run -i httprobe -c 100 -t 3000 | tee -a $basepath/report/alive_subdomains.txt
+cat $basepath/report/subdomains.txt | httprobe -c 100 -t 3000 | tee -a $basepath/report/alive_subdomains.txt
 
 
 # # Get Open Ports

@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import endpoints from "./routes.js";
 import AWS from "aws-sdk";
+import https from "https";
+import fs from "fs";
 
 dotenv.config();
 const app = express();
@@ -32,7 +34,7 @@ const paramsRecieveMessage = {
 };
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://reconswift.vercel.app",
   credentials: true,
 };
 
@@ -44,9 +46,25 @@ app.use(express.urlencoded({ extended: true }));
 // Use the routers
 app.use("/api/v1", endpoints);
 
+
 await mongoose.connect(process.env.DATABASE_URI).catch((error) => {
   console.error("Error connecting to the database: ", error);
 });
+
+// Https server
+
+const certKey = fs.readFileSync('./private.key');
+const certi = fs.readFileSync('./certificate.crt')
+
+const httpsServer = https.createServer({
+	key: certKey,
+	cert: certi
+}, app);
+
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
+});
+
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running on port ${process.env.PORT || 8080}`);

@@ -1,5 +1,5 @@
-*.txt
-report.txt
-.temp
 .env
+private.key
+certificate.crt
+ca_bundle.crt
 node_modules
