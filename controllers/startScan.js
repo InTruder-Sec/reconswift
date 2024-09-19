@@ -27,9 +27,6 @@ const startScan = async (data) => {
     execution.stdout.on("data", function (data) {
       console.log(data);
     });
-
-
-
   } else {
     SQS.receiveMessage(paramsRecieveMessage, async (err, data) => {
       if (err) {
@@ -54,7 +51,7 @@ const startScan = async (data) => {
                   { scanStatus: "Failed" }
                 );
                 const scan = await ScansData.findOneAndUpdate(
-                  { _id: body.scanId },
+                  { scanId: body.scanId },
                   { scanStatus: "Running" }
                 );
                 console.log(scan);
@@ -63,7 +60,7 @@ const startScan = async (data) => {
                 const query = `./utils/script.sh ${url[1]} ${scan.scanType} ${scan.scanId}`;
                 console.log(query);
                 globalStartTime = new Date().getTime();
-                
+
                 const execution = exec(query);
                 execution.stdout.on("data", function (data) {
                   console.log(data);
@@ -78,4 +75,4 @@ const startScan = async (data) => {
 };
 
 export default startScan;
-export { globalStartTime}
+export { globalStartTime };

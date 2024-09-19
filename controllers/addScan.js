@@ -7,8 +7,6 @@ import {
 import ScansData from "../model/UserScans.js";
 import startScan from "./startScan.js";
 
-
-
 export default async function addScan(req, res) {
   const id = req.query.id;
 
@@ -16,10 +14,11 @@ export default async function addScan(req, res) {
     return res.status(400).json({ message: "Missing id" });
   }
 
-  console.log(req.query)
+  console.log(req.query);
+  console.log("Req received");
 
   const details = await ScansData.findOne({
-    _id: id,
+    scanId: id,
   });
   if (details) {
     // See if scan is currently running, if yes add the scan to the queue

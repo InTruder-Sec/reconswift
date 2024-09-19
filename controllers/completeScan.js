@@ -6,12 +6,11 @@ import { globalStartTime } from "./startScan.js";
 import fs from "fs";
 import UserData from "../model/UserSchema.js";
 
-
 const completeScan = async (req, res) => {
   const endTime = new Date().getTime();
   // get the time difference in minutes
 
-  const timeTaken = Math.ceil((endTime - globalStartTime)/60000);
+  const timeTaken = Math.ceil((endTime - globalStartTime) / 60000);
 
   cloudinary.v2.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -20,8 +19,10 @@ const completeScan = async (req, res) => {
   });
   const Id = req.query.Id;
   console.log(Id);
+  console.log("Uploading file!");
   //   Upload file
   const report = ".temp/report/report.txt";
+  console.log(process.cwd());
   const file = fs.readFileSync(report);
   cloudinary.v2.uploader
     .upload(report, {
@@ -32,7 +33,7 @@ const completeScan = async (req, res) => {
     .then(async (result) => {
       console.log(result, "Report uploaded");
       exec(`rm -rf ./.temp/report`);
-      console.log("File deleted")
+      console.log("File deleted");
       const scanData = await ScansData.findOneAndUpdate(
         { scanId: Id },
         { scanStatus: "Completed", reportUrl: result.url }
@@ -41,9 +42,9 @@ const completeScan = async (req, res) => {
       const updateTime = await UserData.findOneAndUpdate(
         { scanHistory: scanData._id },
         { $inc: { scanTime: timeTaken } }
-      )
-      console.log(updateTime)
-        
+      );
+      console.log(updateTime);
+
       startScan();
       res.json({ message: "Scan completed" });
     })

