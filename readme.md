@@ -1,14 +1,11 @@
-# reconswift
+# Reconswift Backend 
 
-Bash script behind the Reconswift tool. Discover Assess and Secure Test the Web Safely with ReconSwift. ReconSwift the automated reconnaissance platform serves as an indispensable tool for bug bounty hunters by streamlining and expediting the initial phase of their security assessments.
+Bash script behind the Reconswift tool. A automated security reconnaissance framework that reduces manual effort for security researchers enumerating IP addresses and active subdomains 50% more accuretly. This is a multi-repo project and the independent NextJS frontend can be found [here](https://github.com/InTruder-Sec/reconswift-tool). The project uses Bash and AWS SQS for efficient scan management.
 
-**Front-End**
+#### Back-End
 
-Please reffer https://github.com/InTruder-Sec/reconswift-tool
-
-**Back-End**
-
-_⚠️Note: You will require a `.env` file with the following values_
+> [!IMPORTANT]  
+> You will require a `.env.local` file with the following values
 
 ```
 AWS_ACCESS_KEY=REDACTED
@@ -22,17 +19,19 @@ CLOUD_API_KEY=REDACTED
 CLOUD_API_SECRET=REDACTED
 ```
 
-Start Commands:
+#### Start Commands:
 
-_⚠️Note: We also have docker environment for the server!_
+> [!TIP]  
+> We also have a docker environment available for backend.
 
 ```
-docker pull intrudersecurity/reconswift-server
+docker pull intrudersecurity/reconswift-server:v1
 docker run -p 80:80 -p 443:443 intrudersecurity/reconswift-server:v1
 ```
 
-_⚠️Note: Some tools requires root previllages to run!_
-
+> [!WARNING]  
+> Some tools require root privileges.
+> 
 ```
 sudo npm run preinstall
 npm install
