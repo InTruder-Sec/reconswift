@@ -19,8 +19,6 @@ CLOUD_API_KEY=REDACTED
 CLOUD_API_SECRET=REDACTED
 ```
 
-#### Start Commands:
-
 > [!TIP]  
 > We also have a docker environment available for backend.
 
@@ -28,6 +26,8 @@ CLOUD_API_SECRET=REDACTED
 docker pull intrudersecurity/reconswift-server:v1
 docker run -p 80:80 -p 443:443 intrudersecurity/reconswift-server:v1
 ```
+
+#### Start Commands:
 
 > [!WARNING]  
 > Some tools require root privileges.
