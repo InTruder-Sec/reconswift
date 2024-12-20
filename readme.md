@@ -23,7 +23,7 @@ CLOUD_API_SECRET=REDACTED
 > We also have a docker environment available for backend.
 
 ```
-docker build reconswift:v1 .
+docker build -t reconswift:v1 .
 docker run -p 80:80 -p 443:443 reconswift:v1
 ```
 
