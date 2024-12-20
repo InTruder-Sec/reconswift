@@ -51,11 +51,11 @@ await mongoose.connect(process.env.DATABASE_URI).catch((error) => {
   console.error("Error connecting to the database: ", error);
 });
 
-// Https server
+// Https server if required
 
-const certKey = fs.readFileSync('./private.key');
-const certi = fs.readFileSync('./certificate.crt')
-
+//const certKey = fs.readFileSync('./private.key');
+//const certi = fs.readFileSync('./certificate.crt')
+/*
 const httpsServer = https.createServer({
 	key: certKey,
 	cert: certi
@@ -64,7 +64,7 @@ const httpsServer = https.createServer({
 httpsServer.listen(443, () => {
     console.log('HTTPS Server running on port 443');
 });
-
+*/
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running on port ${process.env.PORT || 8080}`);

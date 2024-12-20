@@ -23,8 +23,8 @@ CLOUD_API_SECRET=REDACTED
 > We also have a docker environment available for backend.
 
 ```
-docker pull intrudersecurity/reconswift-server:v1
-docker run -p 80:80 -p 443:443 intrudersecurity/reconswift-server:v1
+docker build reconswift:v1 .
+docker run -p 80:80 -p 443:443 reconswift:v1
 ```
 
 #### Start Commands:
