@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/InTruder-Sec/reconswift#readme",
   "dependencies": {
-    "aws-sdk": "^2.1565.0",
+    "aws-sdk": "^2.1692.0",
     "azure-iothub": "^1.16.4",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
